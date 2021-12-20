@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from equivalence.ActionsObject.Get import GettingParameter
-from equivalence.ActionsObject.Variable import Variable
-from equivalence.Tables.Settings.ut_common import UtCommon
 from equivalence.Tools.tools import Tools
 
 from equivalence.AstraRastr import RASTR
+from equivalence.actions.get import GettingParameter
+from equivalence.actions.variable import Variable
+from equivalence.tables.ut_common import UtCommon
 
 
 def set_ut_common(
