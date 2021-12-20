@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from dynamic_data_RUSTab.AstraRastr import RASTR
-from dynamic_data_RUSTab.tools.tool import changing_number_of_semicolons
+from equivalence.AstraRastr import RASTR
+from equivalence.tools.tool import changing_number_of_semicolons
 
 
 class GettingParameter:

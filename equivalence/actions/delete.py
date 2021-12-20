@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from dynamic_data_RUSTab.actions.get import GettingParameter
+from equivalence.actions.get import GettingParameter
 
 
 def full_delete_table(rastr_win, table: str):

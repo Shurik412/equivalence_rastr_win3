@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from dynamic_data_RUSTab.actions.get import GettingParameter
-from dynamic_data_RUSTab.AstraRastr import RASTR
-from dynamic_data_RUSTab.tools.tool import TableOutput
+from equivalence.AstraRastr import RASTR
+from equivalence.actions.get import GettingParameter
+from equivalence.tools.tool import TableOutput
 
 
 class FindNextSelection:

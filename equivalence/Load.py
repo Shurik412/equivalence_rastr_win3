@@ -2,9 +2,9 @@
 import pythoncom
 import pywintypes
 
-from dynamic_data_RUSTab.AstraRastr import RASTR
-from dynamic_data_RUSTab.Templates import ROOT_DIR_SHABLON
-from dynamic_data_RUSTab.tools.tool import TableOutput
+from equivalence.AstraRastr import RASTR
+from equivalence.Templates import ROOT_DIR_SHABLON
+from equivalence.tools.tool import TableOutput
 
 
 class LoadFile(TableOutput, ROOT_DIR_SHABLON):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from dynamic_data_RUSTab.AstraRastr import RASTR
-from dynamic_data_RUSTab.Templates import ROOT_DIR_SHABLON, Key_to_select_location
-from dynamic_data_RUSTab.tools.tool import TableOutput
-from dynamic_data_RUSTab.Templates import ROOT_DIR_SHABLON
+from equivalence.AstraRastr import RASTR
+from equivalence.Templates import ROOT_DIR_SHABLON, Key_to_select_location
+from equivalence.tools.tool import TableOutput
+from equivalence.Templates import ROOT_DIR_SHABLON
 
 
 def save_file(rastr_win=RASTR,
