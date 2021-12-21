@@ -10,7 +10,7 @@ class Equivalent:
     """
 
     def __init__(self,
-                 rastr_win=RASTR,
+                 rastr_win: object,
                  switch_command_line: bool = False):
         f"""
         :param rastr_win: COM - объект Rastr.Astra (win32com);
@@ -23,7 +23,7 @@ class Equivalent:
         return self.switch_command_line
 
     def ekv(self, par: str = ""):
-        kod = self.rastr_win.Ekv(par)
+        kod = self.rastr_win.ekv(par)
         if self.switch_command_line:
             self.output_messages_results(kod)
         return kod
@@ -32,7 +32,7 @@ class Equivalent:
     def output_messages_results(kod):
         pt = PrettyTable()
         pt.field_names = ['Описание', 'Параметр']
-        pt.add_row(['Запуск "Эквивалентирование режима', ''])
+        pt.add_row(['Запуск "Эквивалентирования"', ''])
         if kod != 0:
             pt.add_row(['Сообщение о результатх расчета УР', 'Режим не сбалансирован!'])
         elif kod == 0:

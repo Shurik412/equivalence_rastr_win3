@@ -1,47 +1,36 @@
 # -*- coding: utf-8 -*-
-from equivalence.AstraRastr import RASTR
-
 import time
 
-from equivalence.tables.Generator import Generator
-from equivalence.tables.vetv import Vetv
-from equivalence.tables.node import Node
-from equivalence.tables.area import Area
-
+from equivalence.AstraRastr import RASTR
 from equivalence.Load import LoadFile
 from equivalence.Save import save_file
-
-from equivalence.path_model import PATH_FILE_RASTR_LOAD, PATH_FILE_RASTR_SAVE
-
-from equivalence.calculation.regime import Regime
+from equivalence.actions.selection import SelectionTick, SelectionRemoveTick
+from equivalence.area_ekv import area_ekv_dict
 from equivalence.calculation.equivalent import Equivalent
+from equivalence.calculation.regime import Regime
+from equivalence.path_model import PATH_FILE_RASTR_LOAD, PATH_FILE_RASTR_SAVE
 from equivalence.tools.tool import changing_number_of_semicolons
-
-rgm = Regime(rastr_win=RASTR)
-eqv = Equivalent(rastr_win=RASTR)
-load_ = LoadFile(rastr_win=RASTR)
 
 start = time.time()
 
+rgm = Regime(rastr_win=RASTR)
+eqv = Equivalent(rastr_win=RASTR, switch_command_line=True)
+load_ = LoadFile(rastr_win=RASTR)
+sel_remove = SelectionRemoveTick(rastr_win=RASTR)
+
 load_.load(path_file=PATH_FILE_RASTR_LOAD, name_shabl_russian='режим')
-
-
-def sel_vetv(rastr_win: object, area: int) -> None:
-    _table = rastr_win.Tables(Vetv.table)
-    _sel = rastr_win.Cols(Vetv.sel)
-    _table.SetSel(f"iq.na={area}&ip.na={area}")
-    _sel.Calc("sel=1")
-
-
-def sel_node(rastr_win: object, area: int) -> None:
-    _table = rastr_win.Tables(Node.table)
-    _sel = rastr_win.Cols(Node.sel)
-    _table.SetSel(f"na={area}")
-    _sel.Calc("sel=1")
-
-
-sel_vetv(rastr_win=RASTR, area=205)
-sel_node(rastr_win=RASTR, area=205)
+save_file(rastr_win=RASTR, path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
+for na in area_ekv_dict:
+    sel_move = SelectionTick(rastr_win=RASTR, area=na)
+    sel_move.vetv_in_area(formula=1)
+    sel_move.node_in_area(formula=1)
+    eqv.ekv()
+    sel_remove.vetv()
+    sel_remove.node()
+    if rgm.rgm() == 0:
+        save_file(rastr_win=RASTR, path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
+    else:
+        load_.load(path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
 
 save_file(path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
 

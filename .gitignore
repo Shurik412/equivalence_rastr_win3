@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /equivalence/test/ПРМ лето максимум.rg2
+/equivalence/test/Лето_Макс_тест.rg2
