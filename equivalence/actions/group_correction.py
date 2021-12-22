@@ -15,10 +15,10 @@ class GroupCorr:
     """
 
     def __init__(self,
-                 table,
-                 column,
-                 rastr_win=RASTR,
-                 switch_command_line=False):
+                 table: str,
+                 column: str = 'sel',
+                 rastr_win: object = RASTR,
+                 switch_command_line: bool = False):
         f"""
 
         :param table:
@@ -31,7 +31,7 @@ class GroupCorr:
         self.column = self.table.Cols(column)
         self.switch_command_line = switch_command_line
 
-    def calc(self, key, formula):
+    def calc(self, key: str, formula):
         """
 
         :param key:
@@ -40,5 +40,18 @@ class GroupCorr:
         """
         self.table.SetSel(key)
         self.column.Calc(formula)
+        if self.switch_command_line:
+            print(f'Изменение параметра {self.column.name}: выборка {key}; формула: {formula}.')
+
+    def calc_cols(self, key: str, formula, column: str):
+        """
+
+        :param key:
+        :param formula:
+        :param column:
+        :return:
+        """
+        self.table.SetSel(key)
+        self.table.Cols(column).Calc(formula)
         if self.switch_command_line:
             print(f'Изменение параметра {self.column.name}: выборка {key}; формула: {formula}.')

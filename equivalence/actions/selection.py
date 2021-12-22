@@ -38,21 +38,3 @@ class SelectionRemoveTick:
     def generator(self, formula=0):
         groupCorr = GroupCorr(rastr_win=self.rastr_win, table=Generator.table, column=Generator.sel)
         groupCorr.calc(key=f"", formula=formula)
-
-
-def sel_vetv(rastr_win: object,
-             area: int) -> None:
-    """
-
-    :param rastr_win:
-    :param area:
-    :return:
-    """
-    group_corr = GroupCorr(rastr_win=rastr_win, table=Vetv.table, column=Vetv.sel, switch_command_line=False)
-    group_corr.calc(key=f"iq.na={area} & ip.na={area}", formula=1)
-
-
-def sel_node(rastr_win: object,
-             area: int) -> None:
-    group_corr = GroupCorr(rastr_win=rastr_win, table=Node.table, column=Node.sel, switch_command_line=False)
-    group_corr.calc(key=f"na={area}", formula=1)
