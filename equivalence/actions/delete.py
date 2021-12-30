@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-from equivalence.actions.get import GettingParameter
+# Модуль для удаления строк из таблиц RastrWin3
 
-
-def full_delete_table(rastr_win, table: str):
-    """
-
-    :param rastr_win:
-    :param table:
-    :return:
+def full_delete_table(rastr_win: object, table: str, switch_command_line: bool = False) -> None:
+    f"""
+    Полная очистка таблицы \n
+    :param rastr_win: COM - объект Rastr.Astra (win32com);\n
+    :param table: таблица RastrWin3;\n
+    :param switch_command_line: True/False - выводит сообщения в протокол;\n
+    :return: None;\n
     """
     _table = rastr_win.Tables(table)
-    get = GettingParameter(rastr_win=rastr_win)
-    for row in range(0, get.get_count_table(table=table)):
-        _table.DelRow(row)
+    _table.DelRowS()
+    if switch_command_line:
+        print(f"Табилца {table} очищена!")

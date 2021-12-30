@@ -15,7 +15,7 @@ load_.load(path_file=fr'{absolute_path_to_file}\model_test_RUSTab\test9.rst',
 
 gen = RASTR.Tables(Generator.table)
 gen.SetSel("")
-gen.DelRows()
+gen.DelRowS()
 
 save_file(rastr_win=RASTR,
           path_file=fr'{absolute_path_to_file}\model_test_RUSTab\save_model_test_RUSTab\test9_DelRows.rst',

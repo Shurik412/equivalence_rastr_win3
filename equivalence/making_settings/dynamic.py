@@ -768,14 +768,16 @@ class GetSettingsDynamic(GettingParameter):
                                  column=ComDynamics.EventProcess,
                                  row_id=0)
 
-    def table(self) -> str:
+    @staticmethod
+    def table() -> str:
         """
         Возвращает название таблицы: 'com_dynamics'
         :return: ComDynamics.table -> str
         """
         return ComDynamics.table
 
-    def table_name(self) -> str:
+    @staticmethod
+    def table_name() -> str:
         """
         Возвращает название таблицы: "Общие данные для расчета динамики"
         :return: ComDynamics.table_name -> str

@@ -38,3 +38,20 @@ class SelectionRemoveTick:
     def generator(self, formula=0):
         groupCorr = GroupCorr(rastr_win=self.rastr_win, table=Generator.table, column=Generator.sel)
         groupCorr.calc(key=f"", formula=formula)
+
+
+def set_sel(rastr_win: object, table: str, key: str) -> int or None:
+    """
+
+    :param rastr_win:
+    :param table:
+    :param key:
+    :return:
+    """
+    table_ = rastr_win.Tabeles(table)
+    table_.SetSel(key)
+    row = table_.FindNextSel(-1)
+    if row != (-1):
+        return row
+    else:
+        return -1

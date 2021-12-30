@@ -8,6 +8,7 @@ from equivalence.actions.selection import SelectionTick, SelectionRemoveTick
 from equivalence.area_ekv import area_ekv_dict
 from equivalence.calculation.equivalent import Equivalent
 from equivalence.calculation.regime import Regime
+from equivalence.delete_switches.swiches import del_swiches
 from equivalence.path_model import PATH_FILE_RASTR_LOAD, PATH_FILE_RASTR_SAVE
 from equivalence.tools.tool import changing_number_of_semicolons
 
@@ -20,11 +21,13 @@ sel_remove = SelectionRemoveTick(rastr_win=RASTR)
 
 load_.load(path_file=PATH_FILE_RASTR_LOAD, name_shabl_russian='режим')
 save_file(rastr_win=RASTR, path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
+del_swiches(rastr_win=RASTR, area=1)
 for na in area_ekv_dict:
     sel_move = SelectionTick(rastr_win=RASTR, area=na)
     sel_move.vetv_in_area(formula=1)
     sel_move.node_in_area(formula=1)
     eqv.ekv()
+
     sel_remove.vetv()
     sel_remove.node()
     if rgm.rgm() == 0:
