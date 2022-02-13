@@ -5,10 +5,10 @@ from equivalence.tools.tool import TableOutput
 from equivalence.Templates import ROOT_DIR_SHABLON
 
 
-def save_file(rastr_win=RASTR,
-              path_file: str = None,
-              name_shabl_russian: str = None,
-              switch_command_line: bool = False) -> None:
+def save_file(rastr_win: object = RASTR,
+              path_file: object = None,
+              name_shabl_russian: object = None,
+              switch_command_line: object = False) -> object:
     f"""
     Сохраняет информацию из рабочей области в файле path_file по шаблону name_shabl_russian.\n
 

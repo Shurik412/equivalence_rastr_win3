@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 /equivalence/test/ПРМ лето максимум.rg2
 /equivalence/test/Лето_Макс_тест.rg2
+/equivalence/test/ПРМ лето максимум_after.rg2
+/equivalence/test/model/LetoMax.rg2

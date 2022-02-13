@@ -48,7 +48,7 @@ def set_sel(rastr_win: object, table: str, key: str) -> int or None:
     :param key:
     :return:
     """
-    table_ = rastr_win.Tabeles(table)
+    table_ = rastr_win.Tables(table)
     table_.SetSel(key)
     row = table_.FindNextSel(-1)
     if row != (-1):

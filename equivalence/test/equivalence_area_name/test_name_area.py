@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from equivalence.Load import LoadFile
 from equivalence.AstraRastr import RASTR
-from equivalence.area_ekv import area_evk_dict
+from equivalence.Load import LoadFile
 from equivalence.actions.get import GettingParameter
-from equivalence.tables.area import Area
-from equivalence.test.model_test_RUSTab.path_model import absolute_path_to_file
 from equivalence.area_ekv import area_dict
+from equivalence.area_ekv import area_evk_dict
+from equivalence.tables.Tables import Area
+from equivalence.test.model_test_RUSTab.path_model import absolute_path_to_file
 
 get_ = GettingParameter(rastr_win=RASTR)
 dict_name_area_rastr = {}
