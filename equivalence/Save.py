@@ -8,7 +8,7 @@ from equivalence.Templates import ROOT_DIR_SHABLON
 def save_file(rastr_win: object = RASTR,
               path_file: object = None,
               name_shabl_russian: object = None,
-              switch_command_line: object = False) -> object:
+              switch_command_line: object = False):
     f"""
     Сохраняет информацию из рабочей области в файле path_file по шаблону name_shabl_russian.\n
 

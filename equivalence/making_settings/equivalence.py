@@ -1,29 +1,35 @@
 # -*- coding: utf-8 -*-
 from equivalence.ActionsObject.Get import GettingParameter
 from equivalence.ActionsObject.Variable import Variable
-from equivalence.Tables.Settings.com_ekviv import ComEkviv
 from equivalence.Tools.tools import Tools
 
-from equivalence.AstraRastr import RASTR
+from equivalence.tables.settings.com_ekviv import ComEkviv
 
 
-def set_com_ekviv(selekv=0,
-                  met_ekv=0,
-                  tip_ekv=0,
-                  ekvgen=0,
-                  tip_gen=1,
-                  kfc_x=0,
-                  pot_gen=0,
-                  kpn=0,
-                  tip_sxn=0,
-                  smart=0,
-                  zmax=1000,
-                  otm_n=0,
-                  rastr_win=RASTR,
-                  switch_command_line=False):
+def set_com_ekviv(
+        rastr_win: object,
+        selekv=0,
+        met_ekv=0,
+        tip_ekv=0,
+        ekvgen=0,
+        tip_gen=1,
+        kfc_x=0,
+        pot_gen=0,
+        kpn=0,
+        tip_sxn=0,
+        smart=0,
+        zmax=1000,
+        otm_n=0,
+        ek_sh=0,
+        kpg=0,
+        nra=0,
+        switch_command_line=False):
     f"""
     Параметры настройки "Общие параметры эквивалентирования" (таблица "Эквивалент": com_ekviv):
 
+    :param nra: 
+    :param ek_sh: 
+    :param kpg: 
     :param selekv: Отмеченные узлы: (Отмеч);
     :param met_ekv: Метод эквивалентирования: (Мет Экв);
     :param tip_ekv: Тип эквивалентирования: (Тип Экв);
@@ -36,8 +42,8 @@ def set_com_ekviv(selekv=0,
     :param smart: "Умное" эквивалентирование: (Smart);
     :param zmax: Удаление ветвей с сопротивлением большим: (Z_max);
     :param otm_n: Отмечать узлы после эквивалентирования: (Отм);
-    :param rastr_win: {Tools.RastrDoc};
-    :param switch_command_line: {Tools.switch_command_line_doc};
+    :param rastr_win: ;
+    :param switch_command_line: ;
     :return: Nothing returns
     """
 
@@ -189,6 +195,48 @@ def set_com_ekviv(selekv=0,
                                         column=ComEkviv.otm_n,
                                         row_id=0)
 
+    # ek_sh Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг)
+    ek_sh_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                         column=ComEkviv.ek_sh,
+                                         row_id=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.ek_sh,
+                               row_id=0,
+                               value=ek_sh)
+
+    ek_sh_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                        column=ComEkviv.ek_sh,
+                                        row_id=0)
+
+    # kpg Доля генерации, пересчитываемая в шунт: (d_ген)
+    kpg_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                       column=ComEkviv.kpg,
+                                       row_id=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.kpg,
+                               row_id=0,
+                               value=kpg)
+
+    kpg_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                      column=ComEkviv.kpg,
+                                      row_id=0)
+
+    # nra Доля генерации, пересчитываемая в шунт: (d_ген)
+    nra_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                       column=ComEkviv.nra,
+                                       row_id=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.nra,
+                               row_id=0,
+                               value=nra)
+
+    nra_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                      column=ComEkviv.nra,
+                                      row_id=0)
+
     if switch_command_line is not False:
         print(
             f'{Tools.separator_noun}\n'
@@ -205,7 +253,10 @@ def set_com_ekviv(selekv=0,
             f'smart: "Умное" эквивалентирование: (Smart) "до" = {smart_get_before}; "после" = {smart_get_after};\n'
             f'zmax: Удаление ветвей с сопротивлением большим: (Z_max) "до" = {zmax_get_before}; "после" = {zmax_get_after};\n'
             f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after}.'
-            f'{Tools.separator_noun}\n'
+            f'ek_sh: Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг) "до" = {ek_sh_get_before}; "после" = {ek_sh_get_after}.'
+            f'kpg: Доля генерации, пересчитываемая в шунт: (d_ген) "до" = {kpg_get_before}; "после" = {kpg_get_after}.'
+            f'nra: "до" = {nra_get_before}; "после" = {nra_get_after}.'
+            f'\n'
         )
     return (
         f'{Tools.separator_noun}\n'
@@ -222,5 +273,5 @@ def set_com_ekviv(selekv=0,
         f'smart: "Умное" эквивалентирование: (Smart) "до" = {smart_get_before}; "после" = {smart_get_after};\n'
         f'zmax: Удаление ветвей с сопротивлением большим: (Z_max) "до" = {zmax_get_before}; "после" = {zmax_get_after};\n'
         f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after}.'
-        f'{Tools.separator_noun}\n'
+        f'\n'
     )

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from equivalence.AstraRastr import RASTR
 from equivalence.actions.get import GettingParameter
-from equivalence.tables.settings.com_ekviv import ComEkviv
 from equivalence.actions.variable import Variable
+from equivalence.tables.settings.com_ekviv import ComEkviv
 
 
-def set_com_ekviv(selekv=0,
+def set_com_ekviv(rastr_win: object,
+                  selekv=0,
                   met_ekv=0,
                   tip_ekv=0,
                   ekvgen=0,
@@ -20,11 +20,13 @@ def set_com_ekviv(selekv=0,
                   ek_sh=0,
                   kpg=0,
                   nra=0,
-                  rastr_win=RASTR,
                   switch_command_line=False):
     f"""
     Параметры настройки "Общие параметры эквивалентирования" (таблица "Эквивалент": com_ekviv):
 
+    :param nra: 
+    :param kpg: 
+    :param ek_sh: 
     :param selekv: Отмеченные узлы: (Отмеч);
     :param met_ekv: Метод эквивалентирования: (Мет Экв);
     :param tip_ekv: Тип эквивалентирования: (Тип Экв);
@@ -219,7 +221,7 @@ def set_com_ekviv(selekv=0,
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.ek_sh,
                                row=0,
-                               value=selekv)
+                               value=ek_sh)
 
     ek_sh_get_after = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.ek_sh,
@@ -233,7 +235,7 @@ def set_com_ekviv(selekv=0,
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.kpg,
                                row=0,
-                               value=selekv)
+                               value=kpg)
 
     kpg_get_after = get_.get_cell_row(table=ComEkviv.table,
                                       column=ComEkviv.kpg,
@@ -247,7 +249,7 @@ def set_com_ekviv(selekv=0,
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.nra,
                                row=0,
-                               value=selekv)
+                               value=nra)
 
     nra_get_after = get_.get_cell_row(table=ComEkviv.table,
                                       column=ComEkviv.nra,

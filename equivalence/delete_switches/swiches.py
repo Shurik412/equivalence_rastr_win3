@@ -1,58 +1,60 @@
 # -*- coding: utf-8 -*-
-from equivalence.actions.add_cols_in_tables import add_cols
+from equivalence.actions.add_cols_in_tables import add_cols, AddCols
 from equivalence.actions.get import GettingParameter
 from equivalence.actions.group_correction import GroupCorr
 from equivalence.actions.selection import SelectionRemoveTick
 from equivalence.actions.variable import Variable
 from equivalence.calculation.regime import Regime
 from equivalence.tables.Tables import Node, Vetv, Generator, Area
+from equivalence.actions.zeroing import Zeroing
 
 
-# area: str = "(na<500 | na>600) & na!=8082 & na!=8037 & na!=5329 & na!=5230"
-def del_swiches(rastr_win: object, area: str = "(na<500 | na>600) & na!=8082 & na!=8037 & na!=5329 & na!=5230") -> None:
+def del_swiches(
+        rastr_win: object,
+        viborka_main: str = "(na<500 | na>600) & na!=8082 & na!=8037 & na!=5329 & na!=5230") -> None:
     """
-    dle_swiches - функция F01 - в тестах
+    dle_swiches -
     :param rastr_win:
-    :param area:
+    :param viborka_main:
     :return:
     """
-    # group_corr_vetv = GroupCorr(rastr_win=rastr_win, table=Vetv.table, column=Vetv.groupid)
-    # group_corr_node = GroupCorr(rastr_win=rastr_win, table=Node.table, column=Node.sel)
-    # group_corr_area = GroupCorr(rastr_win=rastr_win, table=Area.table)
-    rgm_obj = Regime(rastr_win=rastr_win)
-    # selection_remove_tick = SelectionRemoveTick(rastr_win=rastr_win)
     gen_table = rastr_win.Tables(Generator.table)
     vetv_table = rastr_win.Tables(Vetv.table)
     node_table = rastr_win.Tables(Node.table)
-    ti_table = rastr_win.Tables("ti")
     area_table = rastr_win.Tables(Area.table)
-    rastr_win.rgm("p")
+
+    zeroing_obj = Zeroing(rastr_win=rastr_win)
+
+    node_add_cols_odj = AddCols(rastr_win=rastr_win, table=Node.table)
+    vetv_add_cols_obj = AddCols(rastr_win=rastr_win, table=Vetv.table)
+    area_add_cols_obj = AddCols(rastr_win=rastr_win, table=Area.table)
 
     # добавляем столбцы в таблицы
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="sel_new")
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="vras_new")
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="qmin_new")
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="qmax_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="sel_new2")
-    add_cols(rastr_win=rastr_win, table=Area.table, name_new_cols="pop_new")
-    add_cols(rastr_win=rastr_win, table=Area.table, name_new_cols="poq_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="ip_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="iq_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="np_new")
+    node_add_cols_odj.add(name_new_cols='sel_new')
+    node_add_cols_odj.add(name_new_cols='vras_new')
+    node_add_cols_odj.add(name_new_cols='qmin_new')
+    node_add_cols_odj.add(name_new_cols='qmax_new')
+
+    vetv_add_cols_obj.add(name_new_cols='sel_new2')
+    vetv_add_cols_obj.add(name_new_cols='ip_new')
+    vetv_add_cols_obj.add(name_new_cols='iq_new')
+    vetv_add_cols_obj.add(name_new_cols='nq_new')
+
+    area_add_cols_obj.add(name_new_cols='pop_new')
+    area_add_cols_obj.add(name_new_cols='poq_new')
 
     area_table.Cols("pop_new").Calc(Area.pop)
     area_table.Cols("poq_new").Calc(Area.poq)
     vetv_table.SetSel("")
     vetv_table.Cols("sel_new2").Calc(Vetv.sel)
 
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
+    zeroing_obj.node()
+    zeroing_obj.vetv()
 
     node_table.SetSel("")
     node_table.Cols("sel_new").Calc(0)
     node_table.Cols("sel_new").Calc(Node.sel)
+
     node_table.Cols("vras_new").Calc(0)
     node_table.Cols("vras_new").Calc(Node.vras)
 
@@ -61,11 +63,10 @@ def del_swiches(rastr_win: object, area: str = "(na<500 | na>600) & na!=8082 & n
     vetv_table.Cols("iq_new").Calc("iq")
     vetv_table.Cols("np_new").Calc("np")
 
-    node_table.SetSel(area)
+    node_table.SetSel(viborka_main)
     node_table.Cols(Node.sel).Calc(1)
     node_table.Cols("sel_new").Calc("sel")
 
-    flvykl = 0
     # убирает sel-узла если на ВЛ с одной стороны выделен узел
     vetvyklvybexc = "(iq.bsh!=0 & ip.bsh=0)|(ip.bsh!=0 & iq.bsh=0)|(ip.sel=0|iq.sel=0)|(ip.tip=0|iq.tip=0)"
     vetv_table.SetSel(vetvyklvybexc)
@@ -76,7 +77,6 @@ def del_swiches(rastr_win: object, area: str = "(na<500 | na>600) & na!=8082 & n
         vetv_table.SetSel("tip=2 & !sta & groupid != 1")
         ivet = vetv_table.FindNextSel(-1)
         if ivet == (-1):
-            print(f"povet={povet} - break")
             break
         ip = vetv_table.Cols(Vetv.ip).Z(ivet)
         iq = vetv_table.Cols(Vetv.iq).Z(ivet)
@@ -185,20 +185,7 @@ def del_swiches(rastr_win: object, area: str = "(na<500 | na>600) & na!=8082 & n
         vetv_table.SetSel(f"ip={ndel}")
         vetv_table.Cols(Vetv.ip).Calc(ny)
 
-        # ti_table.SetSel(
-        #     f"(prv_num=20|prv_num=7|prv_num=6|prv_num=5|prv_num=4|prv_num=3|prv_num=2|prv_num=1)&id1={ndel}")
-        # ti_table.Cols("id1").Calc(ny)
-
-        node_table.DelRowS()  # Удаляем узел
-    kod = rastr_win.rgm("p")
-    if kod != 0:
-        print("Regim do not exist")
-
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc("0")
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc("0")
+        node_table.DelRowS()  # Удаляем узелов
 
 
 def del_switches_gen(rastr_win: object) -> None:
@@ -210,13 +197,6 @@ def del_switches_gen(rastr_win: object) -> None:
     gen_table = rastr_win.Tables(Generator.table)
     vetv_table = rastr_win.Tables(Vetv.table)
     node_table = rastr_win.Tables(Node.table)
-    ti_table = rastr_win.Tables("ti")
-    rastr_win.rgm("p")
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
 
     node_table.SetSel("")
     k1 = node_table.FindNextSel(-1)
@@ -296,12 +276,6 @@ def del_switches_gen(rastr_win: object) -> None:
     node_table.SetSel("sel=1")
     node_table.DelRowS()
 
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
-
 
 def delete_UKR(rastr_win: object):
     """
@@ -309,17 +283,8 @@ def delete_UKR(rastr_win: object):
     :param rastr_win:
     :return:
     """
-    selection_remove_tick = SelectionRemoveTick(rastr_win=rastr_win)
     vetv_table = rastr_win.Tables(Vetv.table)
     node_table = rastr_win.Tables(Node.table)
-
-    rastr_win.rgm("p")
-
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
 
     vetv_table.SetSel("(iq.na>800 & ip.na>300 & ip.na<400)")
     k = vetv_table.FindNextSel(-1)
@@ -364,12 +329,6 @@ def delete_UKR(rastr_win: object):
     vetv_table.SetSel("sel=1")
     vetv_table.DelRowS()
 
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
-
 
 def delete_area(rastr_win: object) -> None:
     """
@@ -386,16 +345,19 @@ def delete_area(rastr_win: object) -> None:
     darea_table = rastr_win.Tables("darea")
     area_table = rastr_win.Tables("area")
     area2_table = rastr_win.Tables("area2")
-    rastr_win.rgm("p")
-    rgm_obj = Regime(rastr_win=rastr_win)
 
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="pl_iq_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="pl_ip_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="ql_iq_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="ql_ip_new")
-    add_cols(rastr_win=rastr_win, table=Vetv.table, name_new_cols="gran")
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="muskod_new")
-    add_cols(rastr_win=rastr_win, table=Node.table, name_new_cols="vras_new")
+    node_add_cols_odj = AddCols(rastr_win=rastr_win, table=Node.table)
+    vetv_add_cols_obj = AddCols(rastr_win=rastr_win, table=Vetv.table)
+
+    vetv_add_cols_obj.add(name_new_cols='pl_iq_new')
+    vetv_add_cols_obj.add(name_new_cols='pl_ip_new')
+    vetv_add_cols_obj.add(name_new_cols='ql_iq_new')
+    vetv_add_cols_obj.add(name_new_cols='ql_ip_new')
+    vetv_add_cols_obj.add(name_new_cols='ql_ip_new')
+    vetv_add_cols_obj.add(name_new_cols='gran')
+
+    node_add_cols_odj.add(name_new_cols='muskod_new')
+    node_add_cols_odj.add(name_new_cols='vras_new')
 
     vetv_table.Cols("pl_iq_new").Calc("pl_iq")
     vetv_table.Cols("pl_ip_new").Calc("pl_ip")
@@ -407,7 +369,6 @@ def delete_area(rastr_win: object) -> None:
     gen_table.DelRowS()
 
     vetv_table.SetSel("ip.sel=1 & iq.sel=0")
-
     k = vetv_table.FindNextSel(-1)
     while k != (-1):
         ip1 = vetv_table.Cols(Vetv.ip).Z(k)
@@ -569,7 +530,7 @@ def delete_area(rastr_win: object) -> None:
         pqd.SetSel(f"Num={pq22}")
         pqd.DelRowS()
         k = gen_table.FindNextSel(k)
-    #--------------удаление всего остального-----------------
+    # --------------удаление всего остального-----------------
     gen_table.SetSel(f"Node.na=0")
     gen_table.DelRowS()
     graphikIT.SetSel("")
@@ -643,12 +604,6 @@ def delete_area(rastr_win: object) -> None:
 
     polin_table.SetSel("nsx=0")
     polin_table.DelRowS()
-    rastr_win.rgm("p")
-
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
 
 
 def vzd_node(rastr_win: object):

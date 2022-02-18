@@ -11,7 +11,6 @@ class Regime:
 
     def __init__(self,
                  rastr_win=RASTR,
-                 par: str = '',
                  switch_command_line: bool = False):
         """
         :param rastr_win: COM - объект Rastr.Astra (win32com);
@@ -26,14 +25,13 @@ class Regime:
         :param switch_command_line: True/False - вывод сообщений в протокол.
         """
         self.rastr_win = rastr_win
-        self.par = par
         self.switch_command_line = switch_command_line
 
     def __bool__(self):
         return self.switch_command_line
 
-    def rgm(self):
-        kod = self.rastr_win.rgm(self.par)
+    def rgm(self, par: str = ''):
+        kod = self.rastr_win.rgm(par)
         if self.switch_command_line:
             self.output_messages_results(kod)
         return kod
