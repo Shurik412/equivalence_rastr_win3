@@ -17,6 +17,9 @@ def set_com_ekviv(selekv=0,
                   smart=0,
                   zmax=1000,
                   otm_n=0,
+                  ek_sh=0,
+                  kpg=0,
+                  nra=0,
                   rastr_win=RASTR,
                   switch_command_line=False):
     f"""
@@ -208,6 +211,48 @@ def set_com_ekviv(selekv=0,
                                         column=ComEkviv.otm_n,
                                         row=0)
 
+    # ek_sh Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг)
+    ek_sh_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                         column=ComEkviv.ek_sh,
+                                         row=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.ek_sh,
+                               row=0,
+                               value=selekv)
+
+    ek_sh_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                        column=ComEkviv.ek_sh,
+                                        row=0)
+
+    # kpg Доля генерации, пересчитываемая в шунт: (d_ген)
+    kpg_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                       column=ComEkviv.kpg,
+                                       row=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.kpg,
+                               row=0,
+                               value=selekv)
+
+    kpg_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                      column=ComEkviv.kpg,
+                                      row=0)
+
+    # nra
+    nra_get_before = get_.get_cell_row(table=ComEkviv.table,
+                                       column=ComEkviv.nra,
+                                       row=0)
+
+    variable_.make_changes_row(table=ComEkviv.table,
+                               column=ComEkviv.nra,
+                               row=0,
+                               value=selekv)
+
+    nra_get_after = get_.get_cell_row(table=ComEkviv.table,
+                                      column=ComEkviv.nra,
+                                      row=0)
+
     if switch_command_line:
         print(
             f'\n'
@@ -223,7 +268,10 @@ def set_com_ekviv(selekv=0,
             f'tip_sxn: Учитывать СХН при эквивалентировании: (СХН) "до" = {tip_sxn_get_before}; "после" = {tip_sxn_get_after};\n'
             f'smart: "Умное" эквивалентирование: (Smart) "до" = {smart_get_before}; "после" = {smart_get_after};\n'
             f'zmax: Удаление ветвей с сопротивлением большим: (Z_max) "до" = {zmax_get_before}; "после" = {zmax_get_after};\n'
-            f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after}.'
+            f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after};\n'
+            f'ek_sh: Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг) "до" = {ek_sh_get_before}; "после" = {ek_sh_get_after};\n'
+            f'kpg: Доля генерации, пересчитываемая в шунт: (d_ген) "до" = {kpg_get_before}; "после" = {kpg_get_after};\n'
+            f'nra:  "до" = {nra_get_before}; "после" = {nra_get_after};\n'
             f''
         )
     return (
@@ -240,6 +288,9 @@ def set_com_ekviv(selekv=0,
         f'tip_sxn: Учитывать СХН при эквивалентировании: (СХН) "до" = {tip_sxn_get_before}; "после" = {tip_sxn_get_after};\n'
         f'smart: "Умное" эквивалентирование: (Smart) "до" = {smart_get_before}; "после" = {smart_get_after};\n'
         f'zmax: Удаление ветвей с сопротивлением большим: (Z_max) "до" = {zmax_get_before}; "после" = {zmax_get_after};\n'
-        f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after}.'
+        f'otm_n: Отмечать узлы после эквивалентирования: (Отм) "до" = {otm_n_get_before}; "после" = {otm_n_get_after};\n'
+        f'ek_sh: Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг) "до" = {ek_sh_get_before}; "после" = {ek_sh_get_after};\n'
+        f'kpg: Доля генерации, пересчитываемая в шунт: (d_ген) "до" = {kpg_get_before}; "после" = {kpg_get_after};\n'
+        f'nra:  "до" = {nra_get_before}; "после" = {nra_get_after};\n'
         f'\n'
     )

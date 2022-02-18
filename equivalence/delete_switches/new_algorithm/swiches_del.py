@@ -172,3 +172,9 @@ def del_swiches_new(rastr_win: object,
 
         tvetv.SetSel("sel=1")
         j1 = tvetv.FindNextSel(-1)
+
+    tnode.SetSel("")
+    tnode.Cols(Node.sel).Calc(0)
+
+    tvetv.SetSel("")
+    tvetv.Cols(Vetv.sel).Calc(0)

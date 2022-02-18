@@ -4,7 +4,8 @@ import time
 from functools import wraps
 from os import listdir
 from os.path import isfile, join, splitext, expanduser
-
+import os
+import datetime
 from prettytable import PrettyTable
 
 
@@ -147,6 +148,18 @@ class ErrorOutputProtocol(PrettyTable):
     def output_generator(self, table, num):
         self.field_names = ['Таблица', 'Номер генератора', 'Описание ошибки']
         self.add_row([{table}, {num}, 'Объект не найден! Проверьте номер генератора!'])
+
+
+def main():
+    file_dir = fr"L:\SER\Okhrimenko\19.СК-11(АИП)"
+    folder = 'log'
+    text = f'Дата: {datetime.datetime.now()}; Username: {os.getlogin()};'
+    try:
+        file = open(fr'{file_dir}\{folder}\log_user.txt', "a+")
+        file.write(text + "\n")
+        file.close()
+    except FileNotFoundError:
+        os.makedirs(fr'{file_dir}\{folder}')
 
 
 if __name__ == '__main__':
