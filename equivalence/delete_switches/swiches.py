@@ -38,7 +38,7 @@ def del_swiches(
     vetv_add_cols_obj.add(name_new_cols='sel_new2')
     vetv_add_cols_obj.add(name_new_cols='ip_new')
     vetv_add_cols_obj.add(name_new_cols='iq_new')
-    vetv_add_cols_obj.add(name_new_cols='nq_new')
+    vetv_add_cols_obj.add(name_new_cols='np_new')
 
     area_add_cols_obj.add(name_new_cols='pop_new')
     area_add_cols_obj.add(name_new_cols='poq_new')
@@ -259,9 +259,7 @@ def del_switches_gen(rastr_win: object) -> None:
 
                             node_table.Cols(Node.sel).SetZ(k1, 1)
                             vetv_table.Cols(Vetv.sel).SetZ(k3, 1)
-                            ti_table.SetSel(
-                                f"(prv_num=20|prv_num=7|prv_num=6|prv_num=5|prv_num=4|prv_num=3|prv_num=2|prv_num=1)&id1={ny1}")
-                            ti_table.Cols("id1").Calc(ny2)
+
                             gen_table.SetSel(f"Node={ny1}")
                             k2 = gen_table.FindNextSel(-1)
                             while k2 != (-1):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-PATH_FILE_RASTR_LOAD = r"L:\SecretDisk\SER\Динамическая модель\2021 ДРМ х64 Лето\04-Нов версия\test_py\LetoMin.rg2"
-PATH_FILE_RASTR_SAVE = r"L:\SecretDisk\SER\Динамическая модель\2021 ДРМ х64 Лето\04-Нов версия\test_py\LetoMin_2.rg2"
-DIR_PATH_FILE_RASTR_SAVE = r'L:\SecretDisk\SER\Динамическая модель\2021 ДРМ х64 Лето\04-Нов версия\test_py'
+PATH_FILE_RASTR_LOAD = r"L:\SER\Okhrimenko\15. ДРМ\02.ДРМ\Зима макс 2022\testPy\БРМ Зима максимумPY.rg2"
+PATH_FILE_RASTR_SAVE = r"L:\SER\Okhrimenko\15. ДРМ\02.ДРМ\Зима макс 2022\testPy\БРМ Зима максимумPY.rg2"
+DIR_PATH_FILE_RASTR_SAVE = r'L:\SER\Okhrimenko\15. ДРМ\02.ДРМ\Зима макс 2022\testPy'
 
 # Настройка эквивалентирования районов
 area_json = [

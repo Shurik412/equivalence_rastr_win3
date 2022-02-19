@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 import time
 
-from equivalence.settings.equivalence import set_com_ekviv
-
 from equivalence.AstraRastr import RASTR
 from equivalence.Load import LoadFile
 from equivalence.Save import save_file
 from equivalence.actions.zeroing import Zeroing
 from equivalence.calculation.equivalent import Equivalent
 from equivalence.calculation.regime import Regime
-from equivalence.correction.generators import off_the_generator_if_the_node_off
+from equivalence.correction.generators import delete_Generator_without_nodes, off_the_generator_if_the_node_off
 from equivalence.correction.node import removing_nodes_without_branches
 from equivalence.correction.reactors import reactors_change
-from equivalence.correction.vetv import off_the_line_from_two_side
+from equivalence.correction.vetv import remove_line, off_the_line_from_two_side, del_vetv
 from equivalence.delete_switches.swiches import delete_area, delete_UKR, del_swiches, del_switches_gen, vzd_node
 from equivalence.equivalence_node.equalization_full import equivalent_full_to_nodes
 from equivalence.making_settings.equivalence import set_com_ekviv
@@ -77,7 +75,6 @@ def main():
 
     zeroing_object.node()
     zeroing_object.vetv()
-    zeroing_object.generators()
 
     regime_obj.rgm(par='p')
 
@@ -86,7 +83,6 @@ def main():
 
     zeroing_object.node()
     zeroing_object.vetv()
-    zeroing_object.generators()
 
     regime_obj.rgm(par='p')
 
@@ -95,7 +91,6 @@ def main():
 
     zeroing_object.node()
     zeroing_object.vetv()
-    zeroing_object.generators()
 
     regime_obj.rgm(par='p')
 
@@ -104,7 +99,6 @@ def main():
 
     zeroing_object.node()
     zeroing_object.vetv()
-    zeroing_object.generators()
 
     regime_obj.rgm(par='p')
 
@@ -113,27 +107,58 @@ def main():
 
     zeroing_object.node()
     zeroing_object.vetv()
-    zeroing_object.generators()
 
     regime_obj.rgm(par='p')
 
-    off_the_line_from_two_side(rastr_win=RASTR)
-    removing_nodes_without_branches(rastr_win=RASTR)
     off_the_generator_if_the_node_off(rastr_win=RASTR)
+
+    zeroing_object.node()
+    zeroing_object.vetv()
+
     delete_Generator_without_nodes(rastr_win=RASTR)
+
+    zeroing_object.node()
+    zeroing_object.vetv()
+
     reactors_change(rastr_win=RASTR)
 
-    remove_line(rastr_win=RASTR)
+    zeroing_object.node()
+    zeroing_object.vetv()
+
+    # remove_line(rastr_win=RASTR)
+
+    # zeroing_object.node()
+    # zeroing_object.vetv()
+
+    regime_obj.rgm(par='p')
+
+    del_vetv(rastr_win=RASTR)
+
+    zeroing_object.node()
+    zeroing_object.vetv()
+
+    regime_obj.rgm(par='p')
+
+    removing_nodes_without_branches(rastr_win=RASTR)
+
+    zeroing_object.node()
+    zeroing_object.vetv()
+
+    delete_Generator_without_nodes(rastr_win=RASTR)
+
+    regime_obj.rgm(par='p')
 
 
-LoadFile(rastr_win=RASTR).load(path_file=PATH_FILE_RASTR_LOAD, name_shabl_russian='режим')
+if __name__ == '__main__':
+    LoadFile(rastr_win=RASTR).load(path_file=PATH_FILE_RASTR_LOAD, name_shabl_russian='режим')
 
-start = time.time()
-main()
-end = time.time()
-print(
-    f'Время работы: '
-    f'{changing_number_of_semicolons(number=(end - start) / 60, digits=2)} мин.'
-)
+    start = time.time()
+    main()
+    end = time.time()
+    print(
+        f'Время работы: '
+        f'{changing_number_of_semicolons(number=(end - start) / 60, digits=2)} мин.'
+    )
 
-save_file(rastr_win=RASTR, path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
+    save_file(rastr_win=RASTR, path_file=PATH_FILE_RASTR_SAVE, name_shabl_russian='режим')
+    save_file(rastr_win=RASTR, path_file=f'{PATH_FILE_RASTR_SAVE}.rst', name_shabl_russian='динамика')

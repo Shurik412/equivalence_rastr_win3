@@ -30,13 +30,6 @@ def remove_line(rastr_win: object):
     """
     node_table = rastr_win.Tables(Node.table)
     vetv_table = rastr_win.Tables(Vetv.table)
-
-    vetv_table.SetSel("")
-    vetv_table.Cols(Vetv.sel).Calc(0)
-
-    node_table.SetSel("")
-    node_table.Cols(Node.sel).Calc(0)
-
     vetv_table.SetSel("")
     k = vetv_table.FindNextSel(-1)
     while k != (-1):
@@ -49,7 +42,7 @@ def remove_line(rastr_win: object):
             vetv_table.Cols("sel").SetZ(k, 1)
 
         node_table.SetSel(f"ny={iq}")
-        k_iq = node.FindNextSel(-1)
+        k_iq = node_table.FindNextSel(-1)
         if k_iq == (-1):
             vetv_table.Cols(Vetv.sel).SetZ(k, 1)
         k = vetv_table.FindNextSel(k)
@@ -67,16 +60,12 @@ def del_vetv(rastr_win: object):
     vetv_table = rastr_win.Tables(Vetv.table)
     node_table = rastr_win.Tables(Node.table)
 
-    NodeColMax = node_table.Count
-    VetvColMax = vetv_table.Count
-    print(f"До Количество узлов = {NodeColMax}")
-    print(f"До Количество ветвей = {VetvColMax}")
+    print(f"До Количество узлов = {node_table.Count}")
+    print(f"До Количество ветвей = {vetv_table.Count}")
 
     vetv_table.SetSel("ip.ny=0|iq.ny=0")
-    t.Printp(f"Удалено ветвей: {vetv_table.Count}")
+    print(f"Удалено ветвей: {vetv_table.Count}")
     vetv_table.DelRowS()
 
-    NodeColMax = node_table.Count
-    VetvColMax = vetv_table.Count
-    print(f"До Количество узлов = {NodeColMax}")
-    print(f"До Количество ветвей = {VetvColMax}")
+    print(f"До Количество узлов = {node_table.Count}")
+    print(f"До Количество ветвей = {vetv_table.Count}")

@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from equivalence.ActionsObject.get import GettingParameter
 from equivalence.ActionsObject.variable import Variable
-from equivalence.Tables.Settings.com_dynamics import ComDynamics
+from equivalence.tables.Tables import ComDynamics
 from prettytable import PrettyTable
-
-from equivalence.AstraRastr import RASTR
 
 
 def set_dynamic(
+        rastr_win: object,
         t_ras: float = 10.0,
-        h_int: float = 0.01,
-        h_min: float = 0.01,
-        h_max: float = 0.01,
+        h_int: float = 0.001,
+        h_min: float = 0.001,
+        h_max: float = 0.1,
         h_out: float = 0.01,
         mint: str = 'HH5',
         smint: str = 'КМ4',
@@ -38,7 +37,7 @@ def set_dynamic(
         ResultFlowDirection: str = 'RastrWin',
         TreatWarningsAsErrors='Нет',
         EventProcess: str = 'Стандартный',
-        rastr_win=RASTR,
+
         switch_command_line=False):
     f"""
     Параметры настройки "Общие данные для расчета динамики" (таблица: com_dynamics):
@@ -100,6 +99,7 @@ def set_dynamic(
                                         column=ComDynamics.Hint,
                                         row_id=0,
                                         value=h_int)
+
     get_h_int_after = get_param_.get_cell_row(table=ComDynamics.table,
                                               column=ComDynamics.Hint,
                                               row_id=0)
@@ -108,10 +108,12 @@ def set_dynamic(
     get_h_min = get_param_.get_cell_row(table=ComDynamics.table,
                                         column=ComDynamics.Hmin,
                                         row_id=0)
+
     variable_def_rowid.make_changes_row(table=ComDynamics.table,
                                         column=ComDynamics.Hmin,
                                         row_id=0,
                                         value=h_min)
+
     get_h_min_after = get_param_.get_cell_row(table=ComDynamics.table,
                                               column=ComDynamics.Hmin,
                                               row_id=0)

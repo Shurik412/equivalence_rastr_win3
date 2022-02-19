@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from equivalence.tables.Tables import Node
+
 
 def reactors_change(rastr_win: object):
     # ************************************************************

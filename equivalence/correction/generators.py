@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from equivalence.tables.Tables import Generator, Node, Vetv
+
+
 def off_the_generator_if_the_node_off(rastr_win: object):
     # '************************************************************
     # ' Назначение: Отключение генераора, если узел к которому подключен
@@ -28,6 +32,6 @@ def delete_Generator_without_nodes(rastr_win: object):
     #  Входные параметры: Nothing
     #  Возврат:    Nothing
     # ************************************************************
-    gen_tabel = rastr_win.Tables(Generator.table)
-    gen_tabel.SetSel("Node.ny=0")
-    gen_tabel.DelRowS()
+    gen_table = rastr_win.Tables(Generator.table)
+    gen_table.SetSel("Node.ny=0")
+    gen_table.DelRowS()

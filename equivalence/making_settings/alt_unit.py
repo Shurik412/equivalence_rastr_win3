@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from equivalence.tables.settings.AltUnit import AltUnit
 from prettytable import PrettyTable
 
 from equivalence.AstraRastr import RASTR
 from equivalence.actions.get import GettingParameter
 from equivalence.actions.variable import Variable
+from equivalence.tables.Tables import AltUnit
 
 
 def set_alt_unit(
@@ -16,7 +16,8 @@ def set_alt_unit(
         Prec: str = '',
         Tabl: str = '',
         rastr_win=RASTR,
-        switch_command_line: bool = False, ):
+        switch_command_line: bool = False
+):
     f"""
     Параметры настройки "Описание альтернативных единиц измерения" (таблица "Ед.Измерения": AltUnit):
 
@@ -37,43 +38,49 @@ def set_alt_unit(
     # Active Активизация альтернативной ЕИ (A)
     active_get_before = get_.get_cell_row(table=AltUnit.table,
                                           column=AltUnit.Active,
-                                          row_id=0)
+                                          row=0)
+
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Active,
                                row=row_id,
                                value=Active)
+
     active_get_after = get_.get_cell_row(table=AltUnit.table,
                                          column=AltUnit.Active,
-                                         row_id=0)
+                                         row=0)
 
     # Unit Основная Единица Измерения (ЕИ)
     unit_get_before = get_.get_cell_row(table=AltUnit.table,
                                         column=AltUnit.Unit,
-                                        row_id=0)
+                                        row=0)
+
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Active,
                                row=row_id,
                                value=Unit)
+
     unit_get_after = get_.get_cell_row(table=AltUnit.table,
                                        column=AltUnit.Unit,
-                                       row_id=0)
+                                       row=0)
 
     # Alt Альтернативная Единица Измерения (Альт ЕИ)
     alt_get_before = get_.get_cell_row(table=AltUnit.table,
                                        column=AltUnit.Alt,
-                                       row_id=0)
+                                       row=0)
+
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Alt,
                                row=row_id,
                                value=Alt)
+
     alt_get_after = get_.get_cell_row(table=AltUnit.table,
                                       column=AltUnit.Alt,
-                                      row_id=0)
+                                      row=0)
 
     # Formula Формула для преобразования (Формула)
     formula_get_before = get_.get_cell_row(table=AltUnit.table,
                                            column=AltUnit.Formula,
-                                           row_id=0)
+                                           row=0)
 
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Formula,
@@ -82,32 +89,35 @@ def set_alt_unit(
 
     formula_get_after = get_.get_cell_row(table=AltUnit.table,
                                           column=AltUnit.Formula,
-                                          row_id=0)
+                                          row=0)
 
     # Prec Точность отображение Альт ЕИ (Точность)
     prec_get_before = get_.get_cell_row(table=AltUnit.table,
                                         column=AltUnit.Prec,
-                                        row_id=0)
+                                        row=0)
 
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Prec,
                                row=row_id,
                                value=Prec)
+
     prec_get_after = get_.get_cell_row(table=AltUnit.table,
                                        column=AltUnit.Prec,
-                                       row_id=0)
+                                       row=0)
 
     # Tabl Ограничитель по таблице (Табл)
     tabl_get_before = get_.get_cell_row(table=AltUnit.table,
                                         column=AltUnit.Tabl,
-                                        row_id=0)
+                                        row=0)
+
     variable_.make_changes_row(table=AltUnit.table,
                                column=AltUnit.Tabl,
                                row=row_id,
                                value=Tabl)
+
     tabl_get_after = get_.get_cell_row(table=AltUnit.table,
                                        column=AltUnit.Tabl,
-                                       row_id=0)
+                                       row=0)
     if switch_command_line:
         pt = PrettyTable()
         pt.title = 'Параметры альтернативных единиц измерений "Ед.Измерения":'

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from equivalence.ActionsObject.Get import GettingParameter
-from equivalence.ActionsObject.Variable import Variable
-from equivalence.Tools.tools import Tools
+from equivalence.actions.get import GettingParameter
+from equivalence.actions.variable import Variable
+from equivalence.tools.tool import TableOutput
 
-from equivalence.tables.settings.com_ekviv import ComEkviv
+from equivalence.tables.Tables import ComEkviv
 
 
 def set_com_ekviv(
@@ -47,199 +47,197 @@ def set_com_ekviv(
     :return: Nothing returns
     """
 
-    variable_ = Variable(rastr_win=rastr_win,
-                         switch_command_line=False)
+    variable_ = Variable(rastr_win=rastr_win)
     get_ = GettingParameter(rastr_win=rastr_win)
 
     # selekv Отмеченные узлы: (Отмеч)
     selekv_get_before = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.selekv,
-                                          row_id=0)
+                                          row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.selekv,
-                               row_id=0,
+                               row=0,
                                value=selekv)
     selekv_get_after = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.selekv,
-                                         row_id=0)
+                                         row=0)
 
     # met_ekv Метод эквивалентирования (Мет Экв)
     met_ekv_get_before = get_.get_cell_row(table=ComEkviv.table,
                                            column=ComEkviv.met_ekv,
-                                           row_id=0)
+                                           row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.met_ekv,
-                               row_id=0,
+                               row=0,
                                value=met_ekv)
     met_ekv_get_after = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.met_ekv,
-                                          row_id=0)
+                                          row=0)
 
     # tip_ekv Тип эквивалентирования (Тип Экв)
     tip_ekv_get_before = get_.get_cell_row(table=ComEkviv.table,
                                            column=ComEkviv.tip_ekv,
-                                           row_id=0)
+                                           row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.tip_ekv,
-                               row_id=0,
+                               row=0,
                                value=tip_ekv)
     tip_ekv_get_after = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.tip_ekv,
-                                          row_id=0)
+                                          row=0)
 
     # ekvgen Эквивалент узлов с фикс V (фиксV)
     ekvgen_get_before = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.ekvgen,
-                                          row_id=0)
+                                          row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.ekvgen,
-                               row_id=0,
+                               row=0,
                                value=ekvgen)
     ekvgen_get_after = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.ekvgen,
-                                         row_id=0)
+                                         row=0)
 
     # tip_gen Тип эквивалентирования генераторов (Тип Ген)
     tip_gen_get_before = get_.get_cell_row(table=ComEkviv.table,
                                            column=ComEkviv.tip_gen,
-                                           row_id=0)
+                                           row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.tip_gen,
-                               row_id=0,
+                               row=0,
                                value=tip_gen)
     tip_gen_get_after = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.tip_gen,
-                                          row_id=0)
+                                          row=0)
 
     # kfc_x Коэффициент для Xg_ген (К_X_ Ген)
     kfc_x_get_before = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.kfc_x,
-                                         row_id=0)
+                                         row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.kfc_x,
-                               row_id=0,
+                               row=0,
                                value=kfc_x)
     kfc_x_get_after = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.kfc_x,
-                                        row_id=0)
+                                        row=0)
 
     # pot_gen Учет потерь при разносе генерации: (dP_Ген)
     pot_gen_get_before = get_.get_cell_row(table=ComEkviv.table,
                                            column=ComEkviv.pot_gen,
-                                           row_id=0)
+                                           row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.pot_gen,
-                               row_id=0,
+                               row=0,
                                value=pot_gen)
     pot_gen_get_after = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.pot_gen,
-                                          row_id=0)
+                                          row=0)
 
     # kpn Доля нагрузки, пересчитываемая в шунт (d_наг)
     kpn_get_before = get_.get_cell_row(table=ComEkviv.table,
                                        column=ComEkviv.kpn,
-                                       row_id=0)
+                                       row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.kpn,
-                               row_id=0,
+                               row=0,
                                value=kpn)
     kpn_get_after = get_.get_cell_row(table=ComEkviv.table,
                                       column=ComEkviv.kpn,
-                                      row_id=0)
+                                      row=0)
 
     # tip_sxn Учитывать СХН при эквивалентировании (СХН)
     tip_sxn_get_before = get_.get_cell_row(table=ComEkviv.table,
                                            column=ComEkviv.tip_sxn,
-                                           row_id=0)
+                                           row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.tip_sxn,
-                               row_id=0,
+                               row=0,
                                value=tip_sxn)
     tip_sxn_get_after = get_.get_cell_row(table=ComEkviv.table,
                                           column=ComEkviv.tip_sxn,
-                                          row_id=0)
+                                          row=0)
 
     # smart "Умное" эквивалентирование : (Smart)
     smart_get_before = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.smart,
-                                         row_id=0)
+                                         row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.smart,
-                               row_id=0,
+                               row=0,
                                value=smart)
     smart_get_after = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.smart,
-                                        row_id=0)
+                                        row=0)
 
     # zmax Удаление ветвей с сопротивлением большим: (Z_max)
     zmax_get_before = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.zmax,
-                                        row_id=0)
+                                        row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.zmax,
-                               row_id=0,
+                               row=0,
                                value=zmax)
     zmax_get_after = get_.get_cell_row(table=ComEkviv.table,
                                        column=ComEkviv.zmax,
-                                       row_id=0)
+                                       row=0)
 
     # otm_n Отмечать узлы после эквивалентирования (Отм)
     otm_n_get_before = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.otm_n,
-                                         row_id=0)
+                                         row=0)
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.otm_n,
-                               row_id=0,
+                               row=0,
                                value=otm_n)
     otm_n_get_after = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.otm_n,
-                                        row_id=0)
+                                        row=0)
 
     # ek_sh Пересчет шунтов в нагрузку в узлах примыкания: (Ш-наг)
     ek_sh_get_before = get_.get_cell_row(table=ComEkviv.table,
                                          column=ComEkviv.ek_sh,
-                                         row_id=0)
+                                         row=0)
 
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.ek_sh,
-                               row_id=0,
+                               row=0,
                                value=ek_sh)
 
     ek_sh_get_after = get_.get_cell_row(table=ComEkviv.table,
                                         column=ComEkviv.ek_sh,
-                                        row_id=0)
+                                        row=0)
 
     # kpg Доля генерации, пересчитываемая в шунт: (d_ген)
     kpg_get_before = get_.get_cell_row(table=ComEkviv.table,
                                        column=ComEkviv.kpg,
-                                       row_id=0)
+                                       row=0)
 
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.kpg,
-                               row_id=0,
+                               row=0,
                                value=kpg)
 
     kpg_get_after = get_.get_cell_row(table=ComEkviv.table,
                                       column=ComEkviv.kpg,
-                                      row_id=0)
+                                      row=0)
 
     # nra Доля генерации, пересчитываемая в шунт: (d_ген)
     nra_get_before = get_.get_cell_row(table=ComEkviv.table,
                                        column=ComEkviv.nra,
-                                       row_id=0)
+                                       row=0)
 
     variable_.make_changes_row(table=ComEkviv.table,
                                column=ComEkviv.nra,
-                               row_id=0,
+                               row=0,
                                value=nra)
 
     nra_get_after = get_.get_cell_row(table=ComEkviv.table,
                                       column=ComEkviv.nra,
-                                      row_id=0)
+                                      row=0)
 
     if switch_command_line is not False:
         print(
-            f'{Tools.separator_noun}\n'
             f'Параметры настройки "Общие параметры эквивалентирования" (таблица "Эквивалент": com_ekviv):\n\n'
             f'selekv: Отмеченные узлы: (Отмеч) "до" = {selekv_get_before}; "после" = {selekv_get_after};\n'
             f'met_ekv: Метод эквивалентирования: (Мет Экв) "до" = {met_ekv_get_before}; "после" = {met_ekv_get_after};\n'
@@ -259,7 +257,6 @@ def set_com_ekviv(
             f'\n'
         )
     return (
-        f'{Tools.separator_noun}\n'
         f'Параметры настройки "Общие параметры эквивалентирования" (таблица "Эквивалент": com_ekviv):\n'
         f'selekv: Отмеченные узлы: (Отмеч) "до" = {selekv_get_before}; "после" = {selekv_get_after};\n'
         f'met_ekv: Метод эквивалентирования: (Мет Экв) "до" = {met_ekv_get_before}; "после" = {met_ekv_get_after};\n'

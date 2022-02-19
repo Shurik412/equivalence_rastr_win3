@@ -7,7 +7,7 @@ from equivalence.Tools.tools import Tools
 from equivalence.AstraRastr import RASTR
 
 
-def set_regim(neb_p: float = 1.000,
+def set_regim(neb_p: float = 0.1,
               it_max: int = 100,
               start: str = 'Да',
               flot: str = 'Нет',
